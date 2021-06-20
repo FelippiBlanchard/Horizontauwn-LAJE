@@ -236,6 +236,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1229484603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1229484604}
+  m_Layer: 0
+  m_Name: raycast
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1229484604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229484603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.54, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1862728468}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1402190809
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,10 +412,15 @@ EdgeCollider2D:
   - {x: -0.03495446, y: -0.48087418}
   - {x: -0.48407155, y: 0.11512846}
   - {x: -0.40747887, y: 0.28734475}
+  - {x: -0.34122866, y: 0.35999143}
   - {x: -0.2725972, y: 0.41048098}
-  - {x: -0.06629115, y: 0.49999443}
+  - {x: -0.17012796, y: 0.47050932}
+  - {x: -0.06531826, y: 0.49026197}
   - {x: 0.14265567, y: 0.47043902}
-  - {x: 0.3082235, y: 0.39962316}
+  - {x: 0.20621467, y: 0.4434508}
+  - {x: 0.3072506, y: 0.39475694}
+  - {x: 0.38591972, y: 0.31800368}
+  - {x: 0.4669502, y: 0.17181331}
   - {x: 0.5, y: 0}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
@@ -575,9 +610,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1862728468}
   - component: {fileID: 1862728467}
-  - component: {fileID: 1862728469}
   - component: {fileID: 1862728470}
   - component: {fileID: 1862728466}
+  - component: {fileID: 1862728469}
   m_Layer: 0
   m_Name: Bob
   m_TagString: Untagged
@@ -669,6 +704,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1000287484}
+  - {fileID: 1229484604}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -684,14 +720,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cfe913568bbb141bec050acc8ebe85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  velocidade: 10
   ForcaPulo: 10
+  TempoPulo: 0.35
+  anguloRotacao: 0.3
+  tempoRotacao: 0.15
+  gravidade: 1
   PosPe: {fileID: 1000287484}
   ChecarRaio: 0.3
   QueEChao:
     serializedVersion: 2
     m_Bits: 64
-  TempoPulo: 0.35
+  raycast: {fileID: 1229484604}
+  sizeRaycast: 1
 --- !u!61 &1862728470
 BoxCollider2D:
   m_ObjectHideFlags: 0

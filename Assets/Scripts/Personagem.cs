@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Personagem : MonoBehaviour
 {
-    public float speed;
+    [Header("Características")]
+    public float velocidade;
     public float ForcaPulo;
-    Rigidbody2D rb;
+    public float TempoPulo;
+    [Range(0f, 1f)]
+    [SerializeField] private float anguloRotacao;
+    [Range(0f, 0.5f)]
+    [SerializeField] private float tempoRotacao;
+    [SerializeField] private float gravidade;
+    
 
-    private bool TaNoChao;
+    [Header("Configuracoes")]
     public Transform PosPe;
     public float ChecarRaio;
     public LayerMask QueEChao;
+    [SerializeField] private Transform raycast;
+    [SerializeField] private float sizeRaycast;
 
     private float ContadorTempoPulo;
-    public float TempoPulo;
     private bool TaPulando;
+    private bool TaNoChao;
+    private Rigidbody2D rb;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,11 +39,15 @@ public class Personagem : MonoBehaviour
     private void Update()
     {
         Pular();
+        Rotacionar();   
     }
     void Andar()
     {
         float xMov = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(xMov * speed, rb.velocity.y);
+        rb.velocity = new Vector2(xMov * velocidade, rb.velocity.y);
+
+        //testar depois de implementar gravidade, por enquanto, faz o personagem voar em quinas
+        //rb.velocity = transform.TransformDirection(new Vector3(xMov * velocidade, 0, 0)) + new Vector3 (0,rb.velocity.y,0);
     }
     void Pular()
     {
@@ -58,6 +73,33 @@ public class Personagem : MonoBehaviour
             {
                 TaPulando = false;
             }
+        }
+    }
+
+    void Rotacionar()
+    {
+        //raycast
+        RaycastHit2D raycastHit = Physics2D.Raycast(raycast.position, raycast.TransformDirection(Vector2.down), sizeRaycast);
+        Debug.DrawRay(raycast.position, raycast.TransformDirection(Vector2.down)* sizeRaycast, Color.red);
+
+        Vector3 movementDirection = Vector3.Cross(raycastHit.normal, new Vector3(0, 0, 1));
+        float angle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg;
+
+        //transform.rotation = Quaternion.AngleAxis(angle * anguloRotacao, Vector3.forward);
+        Quaternion rotation = Quaternion.AngleAxis(angle * anguloRotacao, Vector3.forward);
+        transform.DORotate(rotation.eulerAngles, tempoRotacao);
+        
+    }
+    void Gravidade()
+    {
+        float gravity = rb.velocity.y - gravidade*(Mathf.Exp(Time.deltaTime))/2;
+        rb.velocity = transform.TransformDirection(new Vector3(0, gravity, 0));
+    }
+    void AjusteGravidade()
+    {
+        if (!TaPulando)
+        {
+            rb.velocity = new Vector2(rb.velocity.x,0);
         }
     }
 }
