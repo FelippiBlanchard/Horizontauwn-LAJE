@@ -13,11 +13,11 @@ public class Personagem : MonoBehaviour
     [SerializeField] private float anguloRotacao;
     [Range(0f, 0.5f)]
     [SerializeField] private float tempoRotacao;
-    [SerializeField] private float gravidade;
+    //[SerializeField] private float gravidade;
     
 
     [Header("Configuracoes")]
-    public Transform posPe;
+    public Transform posicaoPe;
     public float checarRaio;
     public LayerMask maskChao;
     [SerializeField] private Transform raycast;
@@ -29,10 +29,13 @@ public class Personagem : MonoBehaviour
     [SerializeField] private float contadorTempoPulo;
 
     private Rigidbody2D rb;
+    private float gravidadeInicial;
 
     private void Awake()
     {
+        
         rb = GetComponent<Rigidbody2D>();
+        gravidadeInicial = rb.gravityScale;
     }
     void FixedUpdate()
     {
@@ -52,9 +55,13 @@ public class Personagem : MonoBehaviour
         //testar depois de implementar gravidade, por enquanto, faz o personagem voar em quinas
         //rb.velocity = transform.TransformDirection(new Vector3(xMov * velocidade, 0, 0)) + new Vector3 (0,rb.velocity.y,0);
     }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(posicaoPe.position, checarRaio);
+    }
     void Pular()
     {
-        taNoChao = Physics2D.OverlapCircle(posPe.position, checarRaio, maskChao);
+        taNoChao = Physics2D.OverlapCircle(posicaoPe.position, checarRaio, maskChao);
         /*
         if (TaNoChao == true && Input.GetKeyDown(KeyCode.Space))
         {
@@ -81,10 +88,12 @@ public class Personagem : MonoBehaviour
         {
             podePular = true;
             contadorTempoPulo = tempoPulo;
+            rb.gravityScale = 0f;
         }
         else
         {
             contadorTempoPulo -= Time.deltaTime;
+            rb.gravityScale = gravidadeInicial;
         }
         if (Input.GetKeyDown(KeyCode.Space) && podePular)
         {
@@ -126,9 +135,11 @@ public class Personagem : MonoBehaviour
         
     }
 
+    /*
     void Gravidade(float angle)
     {
         float gravity = rb.velocity.y - gravidade * (Mathf.Exp(Time.deltaTime)) / 2;
         rb.velocity = new Vector2(rb.velocity.x, gravity);
     }
+    */
 }
