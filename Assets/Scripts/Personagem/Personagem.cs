@@ -124,6 +124,7 @@ public class Personagem : MonoBehaviour
     {
         //raycast
         RaycastHit2D raycastHit = Physics2D.Raycast(raycast.position, raycast.TransformDirection(Vector2.down), sizeRaycast);
+        
         Debug.DrawRay(raycast.position, raycast.TransformDirection(Vector2.down)* sizeRaycast, Color.red);
 
         Vector3 movementDirection = Vector3.Cross(raycastHit.normal, new Vector3(0, 0, 1));
@@ -131,6 +132,7 @@ public class Personagem : MonoBehaviour
 
         //transform.rotation = Quaternion.AngleAxis(angle * anguloRotacao, Vector3.forward);
         Quaternion rotation = Quaternion.AngleAxis(angle * anguloRotacao, Vector3.forward);
+
         transform.DORotate(rotation.eulerAngles, tempoRotacao);
         
     }
