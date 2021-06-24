@@ -28,6 +28,11 @@ public class Personagem : MonoBehaviour
     [SerializeField] private bool taNoChao;
     [SerializeField] private float contadorTempoPulo;
 
+    [Header("Jóia 1")]
+    public GameObject joia1;
+    public bool temJoia1;
+    public float velocidadePlanar;
+
     private Rigidbody2D rb;
     private float gravidadeInicial;
 
@@ -46,6 +51,7 @@ public class Personagem : MonoBehaviour
     {
         Pular();
         Rotacionar();
+        PoderJoia1();
     }
     void Andar()
     {
@@ -135,6 +141,22 @@ public class Personagem : MonoBehaviour
 
         transform.DORotate(rotation.eulerAngles, tempoRotacao);
         
+    }
+
+    void PoderJoia1()
+    {
+        temJoia1 = joia1 == null;
+
+        if (temJoia1 == true)
+        {
+            if (Input.GetKey(KeyCode.Z))
+            {
+                if (rb.velocity.y <= velocidadePlanar)
+                {
+                   rb.velocity = new Vector2(rb.velocity.x, velocidadePlanar);
+                }
+            }
+        }
     }
 
     /*
