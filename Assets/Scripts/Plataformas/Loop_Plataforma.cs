@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Plataforma : MonoBehaviour
+public class Loop_Plataforma : MonoBehaviour
 {
+    [Header("Características")]
     [SerializeField] private float distanciaHorizontal;
     [SerializeField] private float distanciaVertical;
     [SerializeField] private float tempoPraPercorrer;
     [SerializeField] private float intervalo;
-
+    private SpriteRenderer sr;
+    private Collider2D coll;
 
     private Vector3 posicaoInicial;
 
     private void Start()
     {
+        sr = gameObject.GetComponent<SpriteRenderer>();
+        coll = gameObject.GetComponent<Collider2D>();
         posicaoInicial = transform.position;
         StartCoroutine(IMovimentar());
     }
@@ -54,5 +58,17 @@ public class Plataforma : MonoBehaviour
             MovePlataform(posicaoInicial, 0, 0);
             yield return new WaitForSeconds(tempoPraPercorrer);
         }
+    }
+    public void Desativar()
+    {
+        sr.DOFade(0f, 1);
+        coll.enabled = false;
+    }
+    public void Ativar()
+    {
+        sr.enabled = true;
+        sr.DOFade(0f, 0f);
+        sr.DOFade(1f, 1);
+        coll.enabled = true;
     }
 }
