@@ -39,7 +39,6 @@ public class Personagem : MonoBehaviour
 
     private void Awake()
     {
-
         rb = GetComponent<Rigidbody2D>();
         gravidadeInicial = rb.gravityScale;
     }
@@ -179,4 +178,19 @@ public class Personagem : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, gravity);
     }
     */
+
+    void ColetarEstrelinhas()
+    {
+    {
+        
+    }
+}
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Pecinha"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }

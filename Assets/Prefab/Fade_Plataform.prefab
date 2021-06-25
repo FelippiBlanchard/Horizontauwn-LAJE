@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1768257069492834805}
   - component: {fileID: 1768257069492834762}
   - component: {fileID: 7776957418707833493}
+  - component: {fileID: 6470657822062737509}
   m_Layer: 6
   m_Name: Fade_Plataform
   m_TagString: Untagged
@@ -95,7 +96,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -126,3 +127,22 @@ MonoBehaviour:
   intervaloOpaco: 1
   intervaloTransparente: 1
   tempoParaComecar: 0
+--- !u!251 &6470657822062737509
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768257069492834761}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1

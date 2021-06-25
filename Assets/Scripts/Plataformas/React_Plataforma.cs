@@ -22,11 +22,14 @@ public class React_Plataforma : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var col = collision.collider;
-        if (col.gameObject.CompareTag("Player"))
+        if (collision.enabled)
         {
-            MovePlataform(posicaoInicial, distanciaHorizontal, distanciaVertical);
-            col.transform.SetParent(transform);
+            var col = collision.collider;
+            if (col.gameObject.CompareTag("Player"))
+            {
+                MovePlataform(posicaoInicial, distanciaHorizontal, distanciaVertical);
+                col.transform.SetParent(transform);
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

@@ -19,11 +19,14 @@ public class Shake_Plataforma : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var col = collision.collider;
-        if (col.gameObject.CompareTag("Player"))
+        if (collision.enabled)
         {
-            col.transform.SetParent(transform);
-            transform.DOMoveY(initialPosition - distancia, tempoParaRealizar) ;
+            var col = collision.collider;
+            if (col.gameObject.CompareTag("Player"))
+            {
+                col.transform.SetParent(transform);
+                transform.DOMoveY(initialPosition - distancia, tempoParaRealizar);
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
