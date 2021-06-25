@@ -10,6 +10,7 @@ public class Loop_Plataforma : MonoBehaviour
     [SerializeField] private float distanciaVertical;
     [SerializeField] private float tempoPraPercorrer;
     [SerializeField] private float intervalo;
+    [SerializeField] private float tempoParaComecar;
     private SpriteRenderer sr;
     private Collider2D coll;
 
@@ -49,6 +50,7 @@ public class Loop_Plataforma : MonoBehaviour
     }
     IEnumerator IMovimentar()
     {
+        yield return new WaitForSeconds(tempoParaComecar);  
         while (true)
         {
             yield return new WaitForSeconds(intervalo);

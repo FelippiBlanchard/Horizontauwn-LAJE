@@ -9,7 +9,6 @@ public class React_Plataforma : MonoBehaviour
     [SerializeField] private float distanciaHorizontal;
     [SerializeField] private float distanciaVertical;
     [SerializeField] private float tempoPraPercorrer;
-    [SerializeField] private float intervalo;
     [SerializeField] private bool volta;
     private Vector3 posicaoInicial;
     private SpriteRenderer sr;
@@ -32,14 +31,15 @@ public class React_Plataforma : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (volta)
-        {
+
             var col = collision.collider;
             if (col.gameObject.CompareTag("Player"))
             {
-                MovePlataform(posicaoInicial, 0, 0);
+                 if (volta)
+                 {
+                     MovePlataform(posicaoInicial, 0, 0);
+                 }
                 col.transform.SetParent(null);
-            }
         }
     }
 

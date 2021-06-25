@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5927578746391257501}
   - component: {fileID: 5927578746391257500}
   m_Layer: 6
-  m_Name: Fade_Plataform (1)
+  m_Name: Reac_Plataform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.122641504, g: 0.08312561, b: 0.026032398, a: 1}
+  m_Color: {r: 0.1607843, g: 0.18252884, b: 0.3764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -125,5 +125,4 @@ MonoBehaviour:
   distanciaHorizontal: 0
   distanciaVertical: 10
   tempoPraPercorrer: 3
-  intervalo: 2
   volta: 0

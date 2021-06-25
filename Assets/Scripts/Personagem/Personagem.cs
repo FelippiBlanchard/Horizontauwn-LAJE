@@ -9,12 +9,13 @@ public class Personagem : MonoBehaviour
     public float velocidade;
     public float forcaPulo;
     public float tempoPulo;
+    [SerializeField] private float velocidadeMaximaDeQueda;
     [Range(0f, 1f)]
     [SerializeField] private float anguloRotacao;
     [Range(0f, 0.5f)]
     [SerializeField] private float tempoRotacao;
     //[SerializeField] private float gravidade;
-    
+
 
     [Header("Configuracoes")]
     public Transform posicaoPe;
@@ -38,20 +39,21 @@ public class Personagem : MonoBehaviour
 
     private void Awake()
     {
-        
+
         rb = GetComponent<Rigidbody2D>();
         gravidadeInicial = rb.gravityScale;
     }
     void FixedUpdate()
     {
         Andar();
-      
+
     }
     private void Update()
     {
         Pular();
         Rotacionar();
         PoderJoia1();
+        AjusteGravidade();
     }
     void Andar()
     {
@@ -104,7 +106,7 @@ public class Personagem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && podePular)
         {
             rb.velocity = Vector2.up * forcaPulo;
-            
+
         }
 
         if (Input.GetKey(KeyCode.Space) && podePular == true)
@@ -130,8 +132,8 @@ public class Personagem : MonoBehaviour
     {
         //raycast
         RaycastHit2D raycastHit = Physics2D.Raycast(raycast.position, raycast.TransformDirection(Vector2.down), sizeRaycast);
-        
-        Debug.DrawRay(raycast.position, raycast.TransformDirection(Vector2.down)* sizeRaycast, Color.red);
+
+        Debug.DrawRay(raycast.position, raycast.TransformDirection(Vector2.down) * sizeRaycast, Color.red);
 
         Vector3 movementDirection = Vector3.Cross(raycastHit.normal, new Vector3(0, 0, 1));
         float angle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg;
@@ -140,7 +142,7 @@ public class Personagem : MonoBehaviour
         Quaternion rotation = Quaternion.AngleAxis(angle * anguloRotacao, Vector3.forward);
 
         transform.DORotate(rotation.eulerAngles, tempoRotacao);
-        
+
     }
 
     void PoderJoia1()
@@ -153,8 +155,19 @@ public class Personagem : MonoBehaviour
             {
                 if (rb.velocity.y <= velocidadePlanar)
                 {
-                   rb.velocity = new Vector2(rb.velocity.x, velocidadePlanar);
+                    rb.velocity = new Vector2(rb.velocity.x, velocidadePlanar);
                 }
+            }
+        }
+    }
+
+    void AjusteGravidade()
+    {
+        if (!taNoChao)
+        {
+            if (rb.velocity.y <= velocidadeMaximaDeQueda)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, velocidadeMaximaDeQueda);
             }
         }
     }
