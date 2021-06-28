@@ -7978,6 +7978,10 @@ PrefabInstance:
       propertyPath: velocidadeMaximadeQueda
       value: -20
       objectReference: {fileID: 0}
+    - target: {fileID: 7289344676511711020, guid: 5b6ec007e1f84f8438b2a0de75889eac, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 1265e0477d7c168488b5e76a8ffa32f6, type: 2}
     - target: {fileID: 7289344676511711021, guid: 5b6ec007e1f84f8438b2a0de75889eac, type: 3}
       propertyPath: m_Enabled
       value: 0
