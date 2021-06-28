@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: 6947d13e1cb2b7044a9a515c3ec4a5ae
+guid: e1c0965c1a268074ba17a63e0bdd4f87
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6517960463640502138
-    second: tiles liso_0
+      213: -5515957961182908764
+    second: tiles (1)_0
   - first:
-      213: 4402190267119326199
-    second: tiles liso_1
+      213: -5924495513065124361
+    second: tiles (1)_1
   - first:
-      213: -6295765470968152143
-    second: tiles liso_2
-  - first:
-      213: -3109247162513183442
-    second: tiles liso_3
+      213: -8542170014419477886
+    second: tiles (1)_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -44,7 +41,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -58,7 +55,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 320
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tiles liso_0
+      name: tiles (1)_0
       rect:
         serializedVersion: 2
-        x: 166
-        y: 1560
-        width: 1550
-        height: 1400
+        x: 164
+        y: 8164
+        width: 4400
+        height: 3600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7f155f0282747a50800000000000000
-      internalID: 6517960463640502138
+      spriteID: 4ae64b785716373b0800000000000000
+      internalID: -5515957961182908764
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles liso_1
+      name: tiles (1)_1
       rect:
         serializedVersion: 2
-        x: 1764
-        y: 1568
-        width: 1550
-        height: 1400
+        x: 4602
+        y: 8164
+        width: 4400
+        height: 3600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f3545169b8b71d30800000000000000
-      internalID: 4402190267119326199
+      spriteID: 7fd8b5e58b6f7cda0800000000000000
+      internalID: -5924495513065124361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles liso_2
+      name: tiles (1)_2
       rect:
         serializedVersion: 2
-        x: 161
-        y: 103
-        width: 1550
-        height: 1400
+        x: 9050
+        y: 8164
+        width: 4400
+        height: 3600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,29 +192,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bff5c919a2f0a8a0800000000000000
-      internalID: -6295765470968152143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tiles liso_3
-      rect:
-        serializedVersion: 2
-        x: 1756
-        y: 94
-        width: 1550
-        height: 1400
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e2da28fdd2cb9d4d0800000000000000
-      internalID: -3109247162513183442
+      spriteID: 28a988751ad147980800000000000000
+      internalID: -8542170014419477886
       vertices: []
       indices: 
       edges: []
