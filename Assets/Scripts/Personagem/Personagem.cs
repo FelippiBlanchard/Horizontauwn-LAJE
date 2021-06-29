@@ -30,17 +30,18 @@ public class Personagem : MonoBehaviour
     [SerializeField] private float contadorTempoPulo;
 
     [Header("Jóia 1")]
-    public GameObject joia1;
     public bool temJoia1;
     public float velocidadePlanar;
 
     private Rigidbody2D rb;
     private float gravidadeInicial;
+    private Inventario inventario;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         gravidadeInicial = rb.gravityScale;
+        inventario = GetComponent < Inventario>();
     }
     void FixedUpdate()
     {
@@ -146,9 +147,7 @@ public class Personagem : MonoBehaviour
 
     void PoderJoia1()
     {
-        temJoia1 = joia1 == null;
-
-        if (temJoia1 == true)
+        if (inventario.inventario[8])
         {
             if (Input.GetKey(KeyCode.Z))
             {
@@ -178,19 +177,5 @@ public class Personagem : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, gravity);
     }
     */
-
-    void ColetarEstrelinhas()
-    {
-    {
-        
-    }
-}
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Pecinha"))
-        {
-            Destroy(other.gameObject);
-        }
-    }
+ 
 }

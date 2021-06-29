@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c259ad0447f0a26448ea3a9ff89633ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indice: 0
+  inventario: {fileID: 572590115, guid: 5b6ec007e1f84f8438b2a0de75889eac, type: 3}
 --- !u!68 &3134011790302492522
 EdgeCollider2D:
   m_ObjectHideFlags: 0
