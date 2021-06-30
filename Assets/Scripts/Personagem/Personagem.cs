@@ -140,14 +140,13 @@ public class Personagem : MonoBehaviour
 
         //transform.rotation = Quaternion.AngleAxis(angle * anguloRotacao, Vector3.forward);
         Quaternion rotation = Quaternion.AngleAxis(angle * anguloRotacao, Vector3.forward);
-
         transform.DORotate(rotation.eulerAngles, tempoRotacao);
 
     }
 
     void PoderJoia1()
     {
-        if (inventario.inventario[8])
+        if (temJoia1)
         {
             if (Input.GetKey(KeyCode.Z))
             {
