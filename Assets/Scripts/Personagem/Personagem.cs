@@ -31,11 +31,13 @@ public class Personagem : MonoBehaviour
 
     [Header("Jóia 1")]
     public bool temJoia1;
-    public float velocidadePlanar;
+    public float velocidadeYPlanar;
+    [SerializeField] private float velocidadeXPlanar;
 
     private Rigidbody2D rb;
     private float gravidadeInicial;
     private Inventario inventario;
+    private bool planando;
 
     private void Awake()
     {
@@ -58,7 +60,7 @@ public class Personagem : MonoBehaviour
     void Andar()
     {
         float xMov = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(xMov * velocidade, rb.velocity.y);
+        rb.velocity = new Vector2(xMov * velocidade * (planando ? velocidadeXPlanar : 1), rb.velocity.y);
 
         //testar depois de implementar gravidade, por enquanto, faz o personagem voar em quinas
         //rb.velocity = transform.TransformDirection(new Vector3(xMov * velocidade, 0, 0)) + new Vector3 (0,rb.velocity.y,0);
@@ -148,12 +150,20 @@ public class Personagem : MonoBehaviour
     {
         if (temJoia1)
         {
-            if (Input.GetKey(KeyCode.Z))
+            if (!taNoChao)
             {
-                if (rb.velocity.y <= velocidadePlanar)
+                if (Input.GetKey(KeyCode.Z))
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, velocidadePlanar);
+                    if (rb.velocity.y <= velocidadeYPlanar)
+                    {
+                        planando = true;
+                        rb.velocity = new Vector2(rb.velocity.x, velocidadeYPlanar);
+                    }
                 }
+            }
+            else
+            {
+                planando = false;
             }
         }
     }

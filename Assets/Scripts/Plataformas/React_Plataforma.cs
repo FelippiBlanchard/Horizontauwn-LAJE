@@ -38,11 +38,11 @@ public class React_Plataforma : MonoBehaviour
             var col = collision.collider;
             if (col.gameObject.CompareTag("Player"))
             {
-                 if (volta)
+            col.transform.SetParent(null);
+            if (volta)
                  {
                      MovePlataform(posicaoInicial, 0, 0);
                  }
-                col.transform.SetParent(null);
         }
     }
 
