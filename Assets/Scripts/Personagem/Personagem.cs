@@ -18,11 +18,11 @@ public class Personagem : MonoBehaviour
 
 
     [Header("Configuracoes")]
-    public Transform posicaoPe;
-    public float checarRaio;
-    public LayerMask maskChao;
     [SerializeField] private Transform raycast;
     [SerializeField] private float sizeRaycast;
+
+    private Animator anim;
+    private SpriteRenderer sprite;
 
     [Space(10)]
     [SerializeField] private bool podePular;
@@ -38,10 +38,17 @@ public class Personagem : MonoBehaviour
     private float gravidadeInicial;
     private Inventario inventario;
     private bool planando;
+    private RaycastHit2D raycastHit;
+
+    private bool atravessandoPlataforma;
+
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         gravidadeInicial = rb.gravityScale;
         inventario = GetComponent < Inventario>();
     }
@@ -56,49 +63,37 @@ public class Personagem : MonoBehaviour
         Rotacionar();
         PoderJoia1();
         AjusteGravidade();
+        int masklayer = LayerMask.GetMask("Chao");
+        raycastHit = Physics2D.Raycast(raycast.position, raycast.TransformDirection(Vector2.down), sizeRaycast, masklayer);
     }
     void Andar()
     {
         float xMov = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(xMov * velocidade * (planando ? velocidadeXPlanar : 1), rb.velocity.y);
 
-        //testar depois de implementar gravidade, por enquanto, faz o personagem voar em quinas
-        //rb.velocity = transform.TransformDirection(new Vector3(xMov * velocidade, 0, 0)) + new Vector3 (0,rb.velocity.y,0);
+        if(xMov > 0)
+        {
+            sprite.flipX = true;
+        }
+        if(xMov < 0)
+        {
+            sprite.flipX = false;
+        }
+
     }
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawSphere(posicaoPe.position, checarRaio);
-    }
+
     void Pular()
     {
-        taNoChao = Physics2D.OverlapCircle(posicaoPe.position, checarRaio, maskChao);
-        /*
-        if (TaNoChao == true && Input.GetKeyDown(KeyCode.Space))
-        {
-            TaPulando = true;
-            ContadorTempoPulo = TempoPulo;
-            rb.velocity = Vector2.up * ForcaPulo;
-        }
-        
-        if (Input.GetKey(KeyCode.Space) && TaPulando == true)
-        {
-            if (ContadorTempoPulo > 0)
-            {
-                rb.velocity = Vector2.up * ForcaPulo;
-                ContadorTempoPulo -= Time.deltaTime;
-            }
-            else
-            {
-                TaPulando = false;
-            }
-        }
-        */
+        //taNoChao = Physics2D.OverlapCircle(posicaoPe.position, checarRaio, maskChao);
+        taNoChao = raycastHit.collider != null;
 
-        if (taNoChao)
+        if (taNoChao && !atravessandoPlataforma)
         {
-            podePular = true;
             contadorTempoPulo = tempoPulo;
             rb.gravityScale = 0f;
+            anim.SetBool("jump", false);
+            podePular = true;
+
         }
         else
         {
@@ -107,6 +102,7 @@ public class Personagem : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && podePular)
         {
+            anim.SetBool("jump", true);
             rb.velocity = Vector2.up * forcaPulo;
 
         }
@@ -117,13 +113,17 @@ public class Personagem : MonoBehaviour
             {
                 rb.velocity = Vector2.up * forcaPulo;
                 //ContadorTempoPulo -= Time.deltaTime;
+                anim.SetBool("jump", true);
             }
             else
             {
                 podePular = false;
             }
         }
-
+        if (taNoChao && !atravessandoPlataforma) //por algum motivo conserta bug de pular continuamente sem animação
+        {
+            anim.SetBool("jump", false);
+        }
         if (Input.GetKeyUp(KeyCode.Space))
         {
             podePular = false;
@@ -133,7 +133,6 @@ public class Personagem : MonoBehaviour
     void Rotacionar()
     {
         //raycast
-        RaycastHit2D raycastHit = Physics2D.Raycast(raycast.position, raycast.TransformDirection(Vector2.down), sizeRaycast);
 
         Debug.DrawRay(raycast.position, raycast.TransformDirection(Vector2.down) * sizeRaycast, Color.red);
 
@@ -178,13 +177,28 @@ public class Personagem : MonoBehaviour
             }
         }
     }
-
     /*
-    void Gravidade(float angle)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        float gravity = rb.velocity.y - gravidade * (Mathf.Exp(Time.deltaTime)) / 2;
-        rb.velocity = new Vector2(rb.velocity.x, gravity);
+        if (!collision.enabled)
+        {
+            encostandoAlgo = true;
+        }
+        else
+        {
+            encostandoAlgo = false;
+        }
     }
     */
- 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.enabled)
+        {
+            atravessandoPlataforma = true;
+        }
+        else
+        {
+            atravessandoPlataforma = false;
+        }
+    }
 }

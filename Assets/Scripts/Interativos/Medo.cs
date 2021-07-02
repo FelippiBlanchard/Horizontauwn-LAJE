@@ -10,8 +10,12 @@ public class Medo : MonoBehaviour
     [SerializeField] private float tempoParaSumir;
     [SerializeField] private float tempoSubidaFragmento;
     [SerializeField] private float distanciaSubidaFragmento;
+    [SerializeField] private float tempoFadeSomMedo;
     [SerializeField] private GameObject fragmento;
-    [SerializeField] public int indice;
+    [SerializeField] public int indiceMedo;
+
+    [Header("Caminho pra Volta")]
+    [SerializeField] private Caminho_Plataformas caminho_Plataformas;
 
 
     public void Interagir()
@@ -20,10 +24,19 @@ public class Medo : MonoBehaviour
     }
     IEnumerator IAnimacaoSumir()
     {
+        GetComponent<AudioSource>().DOFade(0f, tempoFadeSomMedo).SetEase(Ease.InQuad);
+
         //chama a animação
+
+        caminho_Plataformas.AtivarTudo();
+        
+        GameManager.instance.EventoMedoLiberado(indiceMedo);
+
         var frag = Instantiate(fragmento,transform.parent);
-        frag.transform.DOMoveY(distanciaSubidaFragmento, tempoSubidaFragmento);
+        frag.transform.DOMoveY(transform.position.y + distanciaSubidaFragmento, tempoSubidaFragmento);
+        
         yield return new WaitForSeconds(tempoParaSumir);
+        
         Destroy(gameObject);
     }
 }

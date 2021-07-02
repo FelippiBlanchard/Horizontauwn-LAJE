@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PausePanel : MonoBehaviour
 {
     private const float animationDefaultLength = 0.5f;
 
+    [SerializeField] private float tempoFadeEntreBackground;
+    [SerializeField] private float tempoIntervaloEntreBackgrounds;
+    [SerializeField] private float tempoFadeAdiantado;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float alpha;
+
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private string menu;
+    [SerializeField] private Image backgroundAzul;
+    [SerializeField] private Image backgroundAmarelo;
     public bool isPaused;
+
+    private Coroutine corrotina;
 
     private void Start()
     {
@@ -28,10 +40,12 @@ public class PausePanel : MonoBehaviour
         if (isPaused)
         {
             Resume();
+            StopCoroutine(corrotina);
         }
         else
         {
             Pause();
+            corrotina = StartCoroutine(IChangeBackground());
         }
     }
     public void Pause()
@@ -56,5 +70,29 @@ public class PausePanel : MonoBehaviour
     public void ExitToMenu()
     {
         SceneManager.LoadScene(menu);
+    }
+
+    IEnumerator IChangeBackground()
+    {
+        backgroundAzul.DOFade(alpha, 0.1f).SetUpdate(true); ;
+        backgroundAmarelo.DOFade(0f, 0.1f).SetUpdate(true); ;
+
+
+        while (isPaused)
+        {
+            yield return new WaitForSecondsRealtime(tempoIntervaloEntreBackgrounds);
+
+            backgroundAzul.DOFade(0.1f, tempoFadeEntreBackground).SetUpdate(true); ;
+            backgroundAmarelo.DOFade(alpha, tempoFadeEntreBackground - tempoFadeAdiantado).SetUpdate(true); ;
+
+            yield return new WaitForSecondsRealtime(tempoFadeEntreBackground);
+
+            yield return new WaitForSecondsRealtime(tempoIntervaloEntreBackgrounds);
+
+            backgroundAzul.DOFade(alpha, tempoFadeEntreBackground - tempoFadeAdiantado).SetUpdate(true); ;
+            backgroundAmarelo.DOFade(0.1f, tempoFadeEntreBackground).SetUpdate(true); ;
+            yield return new WaitForSecondsRealtime(tempoFadeEntreBackground);
+
+        }
     }
 }

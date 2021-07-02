@@ -44,9 +44,9 @@ public class Caminho_Plataformas : MonoBehaviour
     {
         for (int i = 0; i < plataformasDesativas.Count; i++)
         {
-            if (plataformasAtivas[i].TryGetComponent(out Shake_Plataforma shakePlataforma))
+            if (plataformasDesativas[i].TryGetComponent(out Shake_Plataforma shakePlataforma))
             {
-                shakePlataforma.Desativar();
+                shakePlataforma.Ativar();
             }
             else
             {
