@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     public void EventoJoia()
     {
+        //Time.timeScale = 0f;
+       // backgroundInicial.GetComponent<Image>().DOFade(0, 1.5f);
+        //Time.timeScale = 1f;
         //Mudar background
     }
 

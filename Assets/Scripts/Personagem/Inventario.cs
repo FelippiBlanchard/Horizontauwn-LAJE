@@ -9,12 +9,13 @@ public class Inventario : MonoBehaviour
     public List<bool> inventario;
     public Personagem personagem;
 
-
     [SerializeField] private float tempoFade;
     [SerializeField] private float tempoFadeFragmento;
     [SerializeField] private float tempoExibindo;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private List<Image> fragmentos;
+    [SerializeField] private GameObject backgroundInicial;
+
 
     private bool exibindo;
 
@@ -70,7 +71,10 @@ public class Inventario : MonoBehaviour
 
         if(indice == 8)
         {
-            //GameManager.EventoJoia()
+            Time.timeScale = 0f;
+            backgroundInicial.GetComponent<SpriteRenderer>().DOFade(0, 5f);
+            Time.timeScale = 1f;
+            //parar no tempo não funciona(?)
             personagem.temJoia1 = true;
             StartCoroutine(MostrarDicaPlanarAposInventario());
         }
