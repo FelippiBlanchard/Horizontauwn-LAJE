@@ -21,8 +21,15 @@ public class Coletavel : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            inventario.ContarPecinha(indice);
-            Destroy(this.gameObject);
+            inventario.Coletar(indice);
+            StartCoroutine(Destroy());
         }
+    }
+
+    IEnumerator Destroy()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        Destroy(this.gameObject);
     }
 }

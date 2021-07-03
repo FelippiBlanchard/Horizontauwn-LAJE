@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private string nomeDaScene;
     [SerializeField] private float tempoStart;
     [SerializeField] private GameObject backgroundTransition;
-    [SerializeField] private CanvasGroup canvasGroup;
+    //[SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private SoundManager soundmanager;
 
     public void Start()
@@ -23,8 +23,8 @@ public class MenuManager : MonoBehaviour
     IEnumerator IStart()
     {
         soundmanager.AbaixarSonsMenu();
-        canvasGroup.alpha = 1;
-        backgroundTransition.transform.DOScale(2, tempoStart*0.5f);
+        //canvasGroup.alpha = 1;
+        backgroundTransition.transform.DOScale(40f, tempoStart*0.5f);
         yield return new WaitForSeconds(tempoStart);
         SceneManager.LoadScene(nomeDaScene);
     }

@@ -2,18 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class Interagir : MonoBehaviour
 {
     [Header("Configurações")]
+    [SerializeField] public float tempoInteragindo;
     public Inventario inventario;
     public List<GameObject> fragmentos;
+    [SerializeField] private float tempoPraDica;
+    [SerializeField] private float tempoFadeDica;
+    [SerializeField] private TextMeshProUGUI dicaK;
+    [SerializeField] private TextMeshProUGUI dicaPlanar;
+    [SerializeField] private Transform sprite;
 
     private bool interagivel;
     private GameObject objetoInteragindo;
+    private Coroutine dicaKmostrando;
+    private float posicaoInicialSprite;
 
 
-
+    private void Start()
+    {
+        dicaK.DOFade(0f, 0f);
+        dicaPlanar.DOFade(0f, 0f);
+        posicaoInicialSprite = sprite.localPosition.y;
+    }
     private void Update()
     {
         AtivarInteracao();
@@ -21,6 +35,9 @@ public class Interagir : MonoBehaviour
 
     public void AtivarInteracao()
     {
+        if (Input.GetKeyDown("k")) {
+            StartCoroutine(AnimacaoInteracao(posicaoInicialSprite));
+        }
         if (Input.GetKeyDown("k") && interagivel)
         {
             if (objetoInteragindo.layer == 8) //medo
@@ -45,15 +62,46 @@ public class Interagir : MonoBehaviour
         }
     }
 
+    IEnumerator AnimacaoInteracao(float posicaoInicial)
+    {
+        sprite.DOLocalMoveY(posicaoInicial - 0.6f, tempoInteragindo);
+        yield return new WaitForSeconds(tempoInteragindo);
+        sprite.DOLocalMoveY(posicaoInicial, tempoInteragindo);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         objetoInteragindo = collision.gameObject;
+        if (objetoInteragindo.CompareTag("Interagivel"))
+        {
+            dicaKmostrando = StartCoroutine(MostrarDica());
+        }
         interagivel = true;
 
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         interagivel = false;
+        if (objetoInteragindo.CompareTag("Interagivel"))
+        {
+            StopCoroutine(dicaKmostrando);
+            dicaK.DOFade(0f, tempoFadeDica);
+        }
+    }
+    IEnumerator MostrarDica()
+    {
+        yield return new WaitForSeconds(tempoPraDica);
+        dicaK.DOFade(1f, tempoFadeDica);
+    }
+    public void MostrarDicaPlanar()
+    {
+        StartCoroutine(IMostrarDicaPlanar());
+    }
+    IEnumerator IMostrarDicaPlanar()
+    {
+        dicaPlanar.DOFade(1f, tempoFadeDica);
+        yield return new WaitForSeconds(2.5f);
+        dicaPlanar.DOFade(0f, tempoFadeDica);
     }
 
     public void InteracaoMedo(GameObject gameobjectMedo)
@@ -71,7 +119,9 @@ public class Interagir : MonoBehaviour
             {
                 porta.fragmentos[i] = true;
                 inventario.inventario[i] = false;
-                var fragmento = Instantiate(fragmentos[i], porta.transform);
+                var fragmento = Instantiate(fragmentos[i], new Vector3(transform.position.x, transform.position.y+6), transform.rotation, transform);
+
+                fragmento.transform.SetParent(porta.transform);
                 fragmento.transform.DOMove(porta.posicaoFragmentos[i].position, porta.tempoAnimacao);
                 yield return new WaitForSeconds(porta.intervaloEntreAnimacao);
             }

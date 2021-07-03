@@ -56,6 +56,8 @@ public class PausePanel : MonoBehaviour
         canvasGroup.interactable = true;
         Time.timeScale = 0f;
         isPaused = true;
+        SoundManager.instance.StopbackgroundFase();
+        
 
     }
     public void Resume()
@@ -66,6 +68,7 @@ public class PausePanel : MonoBehaviour
         canvasGroup.interactable = false;
         Time.timeScale = 1f;
         isPaused = false;
+        SoundManager.instance.ResumebackgroundFase();
     }
     public void ExitToMenu()
     {

@@ -9,6 +9,10 @@ public class Caminho : MonoBehaviour
 
     private void Start()
     {
+        for(int i = 0; i < mensagens.Count; i++)
+        {
+            mensagens[i].GetComponent<Collider2D>().enabled = false;
+        }
         mensagens[index].GetComponent<Collider2D>().enabled = true;
     }
     public void ProximaMensagem()

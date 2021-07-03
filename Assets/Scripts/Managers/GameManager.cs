@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,9 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject backgroundTransition;
     [SerializeField] private CanvasGroup canvasGroupTransition;
     [SerializeField] private float tempoStart;
+    [SerializeField] private TextMeshProUGUI textoInicial;
 
     private void Start()
     {
+        textoInicial.DOFade(0f, 0f);
         Time.timeScale = 1f;
         instance = this;
         DesativarVentos();
@@ -26,7 +30,12 @@ public class GameManager : MonoBehaviour
     {
         canvasGroupTransition.alpha = 1;
         yield return new WaitForSeconds(1f);
-        backgroundTransition.transform.DOScale(0f, tempoStart * 0.5f);
+        textoInicial.DOFade(1f, 1.5f);
+        yield return new WaitForSeconds(2.5f);
+        textoInicial.DOFade(0f, 1f);
+        yield return new WaitForSeconds(1.5f);
+        //backgroundTransition.transform.DOScale(0f, tempoStart * 0.7f);
+        backgroundTransition.GetComponent<Image>().DOFade(0f, tempoStart).SetEase(Ease.InQuad);
     }
 
     public void EventoJoia()

@@ -36,7 +36,6 @@ public class Personagem : MonoBehaviour
 
     private Rigidbody2D rb;
     private float gravidadeInicial;
-    private Inventario inventario;
     private bool planando;
     private RaycastHit2D raycastHit;
 
@@ -50,7 +49,6 @@ public class Personagem : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         gravidadeInicial = rb.gravityScale;
-        inventario = GetComponent < Inventario>();
     }
     void FixedUpdate()
     {
@@ -155,14 +153,21 @@ public class Personagem : MonoBehaviour
                 {
                     if (rb.velocity.y <= velocidadeYPlanar)
                     {
+                        anim.SetBool("planar", true);
                         planando = true;
                         rb.velocity = new Vector2(rb.velocity.x, velocidadeYPlanar);
                     }
+                }
+                if (Input.GetKeyUp(KeyCode.Z))
+                {
+                    planando = false;
+                    anim.SetBool("planar", false);
                 }
             }
             else
             {
                 planando = false;
+                anim.SetBool("planar", false);
             }
         }
     }
