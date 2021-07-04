@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject backgroundTransition;
     //[SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private SoundManager soundmanager;
+
+
 
     public void Start()
     {
@@ -38,4 +41,5 @@ public class MenuManager : MonoBehaviour
             #endif
         }
     }
+
 }

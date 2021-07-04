@@ -15,6 +15,7 @@ public class Interagir : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dicaK;
     [SerializeField] private TextMeshProUGUI dicaPlanar;
     [SerializeField] private Transform sprite;
+    [SerializeField] private TextMeshProUGUI dicaI;
 
     private bool interagivel;
     private GameObject objetoInteragindo;
@@ -26,6 +27,7 @@ public class Interagir : MonoBehaviour
     {
         dicaK.DOFade(0f, 0f);
         dicaPlanar.DOFade(0f, 0f);
+        dicaI.DOFade(0f, 0f);
         posicaoInicialSprite = sprite.localPosition.y;
     }
     private void Update()
@@ -35,10 +37,10 @@ public class Interagir : MonoBehaviour
 
     public void AtivarInteracao()
     {
-        if (Input.GetKeyDown("k")) {
+        if (Input.GetKeyDown("f")) {
             StartCoroutine(AnimacaoInteracao(posicaoInicialSprite));
         }
-        if (Input.GetKeyDown("k") && interagivel)
+        if (Input.GetKeyDown("f") && interagivel)
         {
             if (objetoInteragindo.layer == 8) //medo
             {
@@ -74,7 +76,7 @@ public class Interagir : MonoBehaviour
         objetoInteragindo = collision.gameObject;
         if (objetoInteragindo.CompareTag("Interagivel"))
         {
-            dicaKmostrando = StartCoroutine(MostrarDica());
+            dicaKmostrando = StartCoroutine(MostrarDicaK());
         }
         interagivel = true;
 
@@ -88,11 +90,25 @@ public class Interagir : MonoBehaviour
             dicaK.DOFade(0f, tempoFadeDica);
         }
     }
-    IEnumerator MostrarDica()
+    IEnumerator MostrarDicaK()
     {
         yield return new WaitForSeconds(tempoPraDica);
         dicaK.DOFade(1f, tempoFadeDica);
     }
+
+    public void MostrarDicaI()
+    {
+        StartCoroutine(IMostrarDicaI());
+    }
+    IEnumerator IMostrarDicaI()
+    {
+        yield return new WaitForSeconds(2f);
+        dicaI.DOFade(1f, tempoFadeDica);
+        yield return new WaitForSeconds(2.5f);
+        dicaI.DOFade(0f, tempoFadeDica);
+    }
+
+
     public void MostrarDicaPlanar()
     {
         StartCoroutine(IMostrarDicaPlanar());
@@ -119,11 +135,11 @@ public class Interagir : MonoBehaviour
             {
                 porta.fragmentos[i] = true;
                 inventario.inventario[i] = false;
-                var fragmento = Instantiate(fragmentos[i], new Vector3(transform.position.x, transform.position.y+6), transform.rotation, transform);
+                var fragmento = Instantiate(fragmentos[i], new Vector3(transform.position.x, transform.position.y+6), fragmentos[i].transform.rotation, transform);
 
                 fragmento.transform.SetParent(porta.transform);
-                fragmento.transform.DOMove(porta.posicaoFragmentos[i].position, porta.tempoAnimacao);
-                yield return new WaitForSeconds(porta.intervaloEntreAnimacao);
+                fragmento.transform.DOMove(porta.posicaoFragmentos[i].position, porta.tempoAnimacao).SetUpdate(true);
+                yield return new WaitForSecondsRealtime(porta.intervaloEntreAnimacao);
             }
         }
         porta.VerificarColecao();

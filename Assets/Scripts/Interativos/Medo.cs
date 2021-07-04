@@ -30,6 +30,7 @@ public class Medo : MonoBehaviour
         GetComponent<AudioSource>().DOFade(0f, tempoFadeSomMedo).SetEase(Ease.InQuad);
 
         anim.SetBool("feliz", true);
+        SoundManager.instance.MedoLiberado();
         transform.position = new Vector3(transform.position.x, transform.position.y + 1f);
 
         caminho_Plataformas.AtivarTudo();

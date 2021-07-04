@@ -32,6 +32,7 @@ public class PausePanel : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            SoundManager.instance.SomPause();
             PressPause();
         }
     }

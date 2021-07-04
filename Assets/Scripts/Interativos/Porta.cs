@@ -10,6 +10,9 @@ public class Porta : MonoBehaviour
 
     public List<bool> fragmentos;
     public List<Transform> posicaoFragmentos;
+
+    [SerializeField] public Transform personagem;
+    [SerializeField] private GameManager gm;
     
 
     public void VerificarColecao()
@@ -24,7 +27,7 @@ public class Porta : MonoBehaviour
         }
         if (cont == fragmentos.Count)
         {
-            //fim de jogo
+            gm.Creditos();
             Debug.Log("zerou");
         }
     }

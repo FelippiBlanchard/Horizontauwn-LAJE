@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class Coletavel : MonoBehaviour
 {
     public int indice;
@@ -29,7 +29,11 @@ public class Coletavel : MonoBehaviour
     IEnumerator Destroy()
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        yield return new WaitForSeconds(1f);
+        if(indice == 8)
+        {
+            GetComponent<AudioSource>().DOFade(0f, 1f).SetEase(Ease.InQuad);
+        }
+        yield return new WaitForSeconds(1.5f);
         Destroy(this.gameObject);
     }
 }
